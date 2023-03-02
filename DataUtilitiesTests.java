@@ -9,7 +9,7 @@ import org.junit.*;
 
 
 
-public class DataUtilitiesTest {
+public class DataUtilitiesTests {
 
 	private Values2D values;
   
