@@ -148,6 +148,9 @@ public class DataUtilities_CumulativePercentage {
 	        }
 	    });
     	KeyedValues result = DataUtilities.getCumulativePercentages(values);
+		assertEquals("Cumulative percentage for element 0 is", Double.NaN, result.getValue(0));
+		assertEquals("Cumulative percentage for element 1 is", Double.NaN, result.getValue(1));
+		assertEquals("Cumulative percentage for element 2 is", Double.NaN, result.getValue(2));
     }
+	
 }
-
