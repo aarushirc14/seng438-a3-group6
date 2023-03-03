@@ -141,6 +141,7 @@ public class RangeTests {
     
     //Author: Jonathan
     //================================================================== combine ===============================================================
+    // This test verifies that the combine function works as expected with vaid ranges
     @Test
     public void combine_valid(){
       Range range1 = new Range(-5,0);
@@ -150,6 +151,7 @@ public class RangeTests {
       assertEquals("The upper range is", 5, range.getUpperBound(), .000000001d);
     }
 
+    // This test verifies that the combine function returns the second valid range if the first range is null
     @Test
     public void combine_range1Null(){
       Range range1 = null;
@@ -159,6 +161,7 @@ public class RangeTests {
       assertEquals("The upper range is", range2.getUpperBound(), range.getUpperBound(), .000000001d);
     }
     
+    // This test verifies that the combine function returns the first valid range if the second range is null
     @Test
     public void combine_range2Null(){
       Range range1 = new Range(0,5);
@@ -170,6 +173,7 @@ public class RangeTests {
     
     //Author: Jonathan
     //================================================================== combineIgnoringNaN ===============================================================
+    // This test verifies that the combineIgnoringNaN function returns the second valid range if the first range is null
     @Test 
     public void combineIgnoringNaN_range1Null(){
       Range range1 = null;
@@ -178,7 +182,8 @@ public class RangeTests {
       assertEquals("The lower range is", range2.getLowerBound(), range.getLowerBound(), .000000001d);
       assertEquals("The upper range is", range2.getUpperBound(), range.getUpperBound(), .000000001d);
     }
-
+    
+    // This test verifies that the combineIgnoringNaN function returns null if the first range is null and the second range contains NaN's
     @Test 
     public void combineIgnoringNaN_range1Null_range2NaN(){
       Range range1 = null;
@@ -187,6 +192,7 @@ public class RangeTests {
       assertNull(range);
     }
     
+    // This test verifies that the combineIgnoringNaN function returns the first valid range if the second range is null
     @Test
     public void combineIgnoringNaN_range2Null(){
       Range range1 = new Range(0,5);
@@ -196,6 +202,7 @@ public class RangeTests {
       assertEquals("The upper range is", range1.getUpperBound(), range.getUpperBound(), .000000001d);
     }
     
+    // This test verifies that the combineIgnoringNaN function returns null if the second range is null and the first range contains NaN's
     @Test 
     public void combineIgnoringNaN_range1NaN_range2Null(){
       Range range1 = new Range(Double.NaN,Double.NaN);
@@ -204,6 +211,7 @@ public class RangeTests {
       assertNull(range);
     }
 
+    // This test verifies that the combineIgnoringNaN function returns null if the both ranges are null
     @Test
     public void combineIgnoringNaN_bothNull(){
       Range range1 = null;
@@ -211,6 +219,8 @@ public class RangeTests {
       Range range = Range.combineIgnoringNaN(range1, range2);
       assertNull(range);
     }
+    
+    // This test verifies that the combineIgnoringNaN function returns null if the both ranges have NaN's
     @Test
     public void combineIgnoringNaN_bothNaN(){
       Range range1 = new Range(Double.NaN,Double.NaN);
@@ -221,6 +231,8 @@ public class RangeTests {
     
     //Author: Jonathan
     //================================================================== scale ===============================================================
+    
+    // This test verifies that the scale function works with positive factors 
     @Test 
     public void scale_positiveFactor(){
       Range range1 = new Range(-10,10);
@@ -228,7 +240,8 @@ public class RangeTests {
       assertEquals("The lower range is", -11, range.getLowerBound(), .000000001d);
       assertEquals("The upper range is", 11, range.getUpperBound(), .000000001d);
     }
-
+    
+    // This test verifies that the scale function raises IllegalArgumentException if a negative factor is given 
     @Test(expected=IllegalArgumentException.class)
     public void scale_negativeFactor(){
       Range range1 = new Range(-10,10);
@@ -237,13 +250,15 @@ public class RangeTests {
 
     //Author: Jonathan
     //================================================================== Range ===============================================================
+    // This test verifies that the Range constructor works as intended with a valid range
     @Test 
     public void Range_valid(){
       Range range = new Range(-10,10);
       assertEquals("The lower range is", -10, range.getLowerBound(), .000000001d);
       assertEquals("The upper range is", 10, range.getUpperBound(), .000000001d);
     }
-
+    
+    // This test verifies that the Range constructor raises IllegalArgumentException if a invalid range is given 
     @Test(expected=IllegalArgumentException.class)
     public void Range_invalid(){
       Range range = new Range(10,-10);
@@ -251,6 +266,7 @@ public class RangeTests {
     
     //Author: Jonathan
     //================================================================== hashCode ===============================================================
+    // This test verifies that the hashCode function works as intended with a valid range
     @Test
     public void hashCode_valid(){
       Range range = new Range(-10,10);
@@ -258,6 +274,7 @@ public class RangeTests {
       assertEquals("The hashcode is", 7.077888E7, result, .000000001d);
     }
     
+    // This test verifies that the hashCode function still works with NaN ranges
     @Test
     public void hashCode_NaN(){
         Range range = new Range(Double.NaN,Double.NaN);
