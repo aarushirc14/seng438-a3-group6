@@ -9,7 +9,7 @@ import org.junit.*;
 
 
 
-public class ColandRowTotal {
+public class DataUtilities_ColandRowTotal {
 
 	private Values2D values;
   
