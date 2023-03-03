@@ -9,7 +9,7 @@ import org.junit.*;
 
 //Author: Jonathan
 
-public class Range_contains_Tests {
+public class Range_contains {
 
     private Range range; 
 
