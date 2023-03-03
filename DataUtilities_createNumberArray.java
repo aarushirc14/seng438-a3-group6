@@ -9,7 +9,7 @@ import org.jfree.data.DataUtilities;
 
 import org.junit.*;
 
-public class DataUtilitiesTest{
+public class DataUtilities_createNumberArray{
 	
 	@BeforeClass public static void setUpBeforeClass() throws Exception {
     }
