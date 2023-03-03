@@ -13,12 +13,12 @@ import java.util.*;
 // Used parameterized testing in order to reduce redundancy.
 
 @RunWith(Parameterized.class)
-public class Range_equals_Tests {
+public class Range_equals {
     private Range exampleRange;
     public double x1,y1;
     public boolean isTrue;
 
-    public Range_equals_Tests(double x1, double y1, boolean expected) {
+    public Range_equals(double x1, double y1, boolean expected) {
         this.x1 = x1; 
         this.y1 = y1;
         this.isTrue = expected;
