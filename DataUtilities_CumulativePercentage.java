@@ -21,7 +21,7 @@ import java.util.ArrayList;
 // Throws:
 //  InvalidParameterException - if invalid data object is passed in.
 
-public class DataUtilities_CumulativePercentages_Tests {
+public class DataUtilities_CumulativePercentage {
 
 	private KeyedValues values;
 	
