@@ -269,13 +269,13 @@ public class RangeTests {
     // getLowerBound() tests
     @Test
     public void lowerBoundShouldBeMinusOne() {
-        exampleRange = new Range(-1, 1);
+        Range exampleRange = new Range(-1, 1);
         assertEquals("Lower bound should be -1", -1, exampleRange.getLowerBound(), .000000001d);
     }
 
     @Test
     public void lowerBoundShouldBeOne() {
-        exampleRange = new Range(1, 500);
+        Range exampleRange = new Range(1, 500);
         assertEquals("Lower bound should be 1", 1, exampleRange.getLowerBound(), .000000001d);
     }
 
@@ -283,13 +283,13 @@ public class RangeTests {
     // getUpperBound() tests
     @Test
     public void upperBoundShouldBeMinusOne() {
-        exampleRange = new Range(-240, -1);
+        Range exampleRange = new Range(-240, -1);
         assertEquals("Upper bound should be -1", -1, exampleRange.getUpperBound(), .000000001d);
     }
 
     @Test
     public void upperBoundShouldBeOne() {
-        exampleRange = new Range(-100, 1);
+        Range exampleRange = new Range(-100, 1);
         assertEquals("Upper bound should be 1", 1, exampleRange.getUpperBound(), .000000001d);
     }
 
@@ -298,31 +298,31 @@ public class RangeTests {
 
     @Test
     public void constrainedInRange() {
-    	exampleRange = new Range(-1, 1);
+    	Range exampleRange = new Range(-1, 1);
         assertEquals("Constrained value should be 0", 0, exampleRange.constrain(0), 0.0001d);
     }
 
     @Test
     public void constrainedUpperBound() {
-    	exampleRange = new Range(-1, 1);
+    	Range exampleRange = new Range(-1, 1);
         assertEquals("Constrained value should be 1", 1, exampleRange.constrain(1), 0.0001d);
     }
 
     @Test
     public void constrainedLowerBound() {
-    	exampleRange = new Range(-1, 1);
+    	Range exampleRange = new Range(-1, 1);
         assertEquals("Constrained value should be -1", -1, exampleRange.constrain(-1), 0.0001d);
     }
 
     @Test
     public void constrainedTowardLowerBound() {
-    	exampleRange = new Range(-1, 1);
+    	Range exampleRange = new Range(-1, 1);
         assertEquals("Constrained value should be -1", -1, exampleRange.constrain(-51239.34), 0.0001d);
     }
 
     @Test
     public void constrainedTowardUpperBound() {
-    	exampleRange = new Range(-1, 1);
+    	Range exampleRange = new Range(-1, 1);
         assertEquals("Constrained value should be 1", 1, exampleRange.constrain(51239.34), 0.0001d);
     }
 }
