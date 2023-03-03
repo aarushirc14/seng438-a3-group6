@@ -49,7 +49,18 @@ public class RangeTests {
     double result= range.getLength();
     assertEquals("Length between 2 and 2 is",  0, result, .000000001d);
     }
-   
+
+    Range brokenRange;
+    //This test is for checking that an exception is thrown if the range is invalid
+    @Test(expected= Exception.class)
+	    public void getLength_invalid() {
+    	try {
+    		brokenRange = new Range(1,-1);
+    	}catch(Exception e) {
+    		brokenRange.getLength();
+    	}
+    }
+
   //Author: Aarushi
   //============================================================== getCentralValue() =======================================================
     @Test
@@ -127,9 +138,131 @@ public class RangeTests {
 		
 		
 	}
+    
+    //Author: Jonathan
+    //================================================================== combine ===============================================================
+    @Test
+    public void combine_valid(){
+      Range range1 = new Range(-5,0);
+      Range range2 = new Range(0,5);
+      Range range = Range.combine(range1, range2);
+      assertEquals("The lower range is", -5, range.getLowerBound(), .000000001d);
+      assertEquals("The upper range is", 5, range.getUpperBound(), .000000001d);
+    }
 
-}
+    @Test
+    public void combine_range1Null(){
+      Range range1 = null;
+      Range range2 = new Range(0,5);
+      Range range = Range.combine(range1, range2);
+      assertEquals("The lower range is", range2.getLowerBound(), range.getLowerBound(), .000000001d);
+      assertEquals("The upper range is", range2.getUpperBound(), range.getUpperBound(), .000000001d);
+    }
+    
+    @Test
+    public void combine_range2Null(){
+      Range range1 = new Range(0,5);
+      Range range2 = null;
+      Range range = Range.combine(range1, range2);
+      assertEquals("The lower range is", range1.getLowerBound(), range.getLowerBound(), .000000001d);
+      assertEquals("The upper range is", range1.getUpperBound(), range.getUpperBound(), .000000001d);
+    }
+    
+    //Author: Jonathan
+    //================================================================== combineIgnoringNaN ===============================================================
+    @Test 
+    public void combineIgnoringNaN_range1Null(){
+      Range range1 = null;
+      Range range2 = new Range(0,5);
+      Range range = Range.combineIgnoringNaN(range1, range2);
+      assertEquals("The lower range is", range2.getLowerBound(), range.getLowerBound(), .000000001d);
+      assertEquals("The upper range is", range2.getUpperBound(), range.getUpperBound(), .000000001d);
+    }
 
+    @Test 
+    public void combineIgnoringNaN_range1Null_range2NaN(){
+      Range range1 = null;
+      Range range2 = new Range(Double.NaN,Double.NaN);
+      Range range = Range.combineIgnoringNaN(range1, range2);
+      assertNull(range);
+    }
+    
+    @Test
+    public void combineIgnoringNaN_range2Null(){
+      Range range1 = new Range(0,5);
+      Range range2 = null;
+      Range range = Range.combineIgnoringNaN(range1, range2);
+      assertEquals("The lower range is", range1.getLowerBound(), range.getLowerBound(), .000000001d);
+      assertEquals("The upper range is", range1.getUpperBound(), range.getUpperBound(), .000000001d);
+    }
+    
+    @Test 
+    public void combineIgnoringNaN_range1NaN_range2Null(){
+      Range range1 = new Range(Double.NaN,Double.NaN);
+      Range range2 = null;
+      Range range = Range.combineIgnoringNaN(range1, range2);
+      assertNull(range);
+    }
 
+    @Test
+    public void combineIgnoringNaN_bothNull(){
+      Range range1 = null;
+      Range range2 = null;
+      Range range = Range.combineIgnoringNaN(range1, range2);
+      assertNull(range);
+    }
+    @Test
+    public void combineIgnoringNaN_bothNaN(){
+      Range range1 = new Range(Double.NaN,Double.NaN);
+      Range range2 = new Range(Double.NaN,Double.NaN);
+      Range range = Range.combineIgnoringNaN(range1, range2);
+      assertNull(range);
+    }
+    
+    //Author: Jonathan
+    //================================================================== scale ===============================================================
+    @Test 
+    public void scale_positiveFactor(){
+      Range range1 = new Range(-10,10);
+      Range range = Range.scale(range1,1.1);
+      assertEquals("The lower range is", -11, range.getLowerBound(), .000000001d);
+      assertEquals("The upper range is", 11, range.getUpperBound(), .000000001d);
+    }
 
+    @Test(expected=IllegalArgumentException.class)
+    public void scale_negativeFactor(){
+      Range range1 = new Range(-10,10);
+      Range range = Range.scale(range1,-1);
+    }
 
+    //Author: Jonathan
+    //================================================================== Range ===============================================================
+    @Test 
+    public void Range_valid(){
+      Range range = new Range(-10,10);
+      assertEquals("The lower range is", -10, range.getLowerBound(), .000000001d);
+      assertEquals("The upper range is", 10, range.getUpperBound(), .000000001d);
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void Range_invalid(){
+      Range range = new Range(10,-10);
+    }
+    
+    //Author: Jonathan
+    //================================================================== hashCode ===============================================================
+    @Test
+    public void hashCode_valid(){
+      Range range = new Range(-10,10);
+      int result = range.hashCode();
+      assertEquals("The hashcode is", 7.077888E7, result, .000000001d);
+    }
+    
+    @Test
+    public void hashCode_NaN(){
+        Range range = new Range(Double.NaN,Double.NaN);
+        int result = range.hashCode();
+        assertEquals("The hashcode is", -1.572864E7, result, .000000001d);
+      }
+
+  }
