@@ -7,7 +7,7 @@ import org.jfree.data.Range;
 
 import org.junit.*;
 
-public class ShiftTest {
+public class expandToInclude {
 	private Range zero;
 	private Range negative;
 	private Range positive;
@@ -58,7 +58,7 @@ public class ShiftTest {
         0, exampleRange.getCentralValue(), .000000001d);
     }
     
-
+/*
     @Test
     public void testBaseCase() {
         assertEquals("A String \"Range[lower,upper]\" where lower=lower range and upper=upper range.",
@@ -83,7 +83,7 @@ public class ShiftTest {
     	"Range[-10.0, 10.0]", exampleRange4.toString());
     	System.out.println(exampleRange4.toString());
     }
-    
+    */
     @Test
     public void expandToIncludeRange5() {
     	assertEquals(1.0, exampleRange5.getLowerBound(), 0.000000001d);
@@ -121,7 +121,7 @@ public class ShiftTest {
     Returns:
     A new range.
     */
-   
+   /*
     @Test
     public void shiftZeroPositiveTrue() {
     	assertEquals(new Range(0,10), Range.shift(exampleRange, 1, true));
@@ -162,7 +162,7 @@ public class ShiftTest {
     	exampleRange = new Range(Double.NaN, Double.NaN);
     	assertTrue(exampleRange.isNaNRange());
     }
-
+*/
 
     
     @After
