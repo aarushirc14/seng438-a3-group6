@@ -7,7 +7,7 @@ import org.jfree.data.Range;
 
 import org.junit.*;
 
-public class ShiftTest {
+public class NaNRange {
 	private Range zero;
 	private Range negative;
 	private Range positive;
@@ -121,7 +121,7 @@ public class ShiftTest {
     Returns:
     A new range.
     */
-   
+   /*
     @Test
     public void shiftZeroPositiveTrue() {
     	assertEquals(new Range(0,10), Range.shift(exampleRange, 1, true));
@@ -137,28 +137,28 @@ public class ShiftTest {
     	assertEquals(new Range(-5,0), Range.shift(exampleRange, -1, false));
     }
     
-
+*/
     
     @Test
-    public void testIsNaNRange() {
+    public void isNaNRange() {
     	exampleRange = new Range(-1, 1);
     	assertFalse(exampleRange.isNaNRange());
     }
     
     @Test
-    public void testIsNaNRangeOneNanLow() {
+    public void isNaNLow() {
     	exampleRange = new Range(Double.NaN, 1);
     	assertFalse(exampleRange.isNaNRange());
     }
     
     @Test
-    public void testIsNaNRangeOneNanHigh() {
+    public void isNaNHigh() {
     	exampleRange = new Range(-1, Double.NaN);
     	assertFalse(exampleRange.isNaNRange());
     }
     
     @Test
-    public void testIsNaNRangeTrue() {
+    public void isNaNTrue() {
     	exampleRange = new Range(Double.NaN, Double.NaN);
     	assertTrue(exampleRange.isNaNRange());
     }
