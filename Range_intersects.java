@@ -1,4 +1,4 @@
-package org.jfree.data;
+package org.jfree.data.test;
 
 import static org.junit.Assert.*; 
 import org.jfree.data.Range; 
@@ -9,7 +9,7 @@ import org.junit.runners.Parameterized;
 import java.util.*;
 
 // Author: Luke
-// Test cases testing 
+// Test cases testing intersects() function in Range class
 // Used parameterized testing in order to reduce redundancy.
 
 @RunWith(Parameterized.class)
@@ -18,7 +18,7 @@ public class Range_intersects {
     public double x1,y1;
     public boolean isTrue;
 
-    public Range_intersects(double x1, double y1, boolean expected) {
+    public Range_intersects_Tests(double x1, double y1, boolean expected) {
         this.x1 = x1; 
         this.y1 = y1;
         this.isTrue = expected;
@@ -26,35 +26,61 @@ public class Range_intersects {
 
     @Parameters public static Collection<Object[]> parameters() {
         return Arrays.asList(new Object[][] {
+            // Original:   -1   1
+            // Given   :   -1   1
             {-1, 1, true}, 
-            {-0.5, 0.5, false},
-            {0, 1, false}, 
-            {-50, 1, false}, 
-            {-1, 5, false}, 
-            {-1, 0, false}, 
-            {50, 100, false}, 
-            {-50, -5, false}});
+            // Original:        -1   1
+            // Given   :   -5   -1            
+            {-5, -1, true},
+            // Original:        -1   1
+            // Given   :      -2   0
+            {-2, 0, true}, 
+            // Original:        -1   1
+            // Given   :        -1 0
+            {-1, 0, true}, 
+            // Original:        -1   1
+            // Given   :      -2       2
+            {-2, 2, true}, 
+            // Original: -1   1
+            // Given   :      1   2
+            {1, 2, true}, 
+            // Original: -1   1
+            // Given   :    0   2
+            {0, 2, true}, 
+            // Original: -1   1
+            // Given   :    0 1
+            {0, 1, true}, 
+            // Original: -1          1
+            // Given   :   -0.5, 0.5
+            {-0.5, 0.5, true},
+            // Original: -1      1
+            // Given   :           2    3
+            {2, 3, false},
+            // Original:                -1     1
+            // Given   :  -5        -2 
+            {-5, -2, false}});
     }
 
     @Before
     public void setUp() throws Exception { 
         exampleRange = new Range(-1, 1);
     }
-    
-    @Test
-    public void invalidRangePassed() {
-    	assertFalse("Ranges should not be equal", exampleRange.equals(new Object()));
-    }
 
     @Test
-    public void rangeShouldBeEqual() {
+    public void rangesShouldIntersect() {
         Assume.assumeTrue(isTrue);
-        assertTrue("Ranges should be equal", exampleRange.equals(new Range(x1, y1)));
+        assertTrue("Ranges should intersect", exampleRange.intersects(x1, y1));
     }
 
     @Test
-    public void rangeShouldNotBeEqual() {
+    public void rangesShouldNotIntersect() {
         Assume.assumeTrue(!isTrue);
-        assertFalse("Ranges should not be equal", exampleRange.equals(new Range(x1, y1)));
+        assertFalse("Ranges should not intersect", exampleRange.intersects(x1, y1));
+    }
+
+    @Test
+    public void rangesIntersectWithObject() {
+        Range toCompare = new Range(-1, 1);
+        assertTrue("Ranges intersect", exampleRange.intersects(toCompare));
     }
 }
